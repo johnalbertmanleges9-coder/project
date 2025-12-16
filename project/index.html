@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Log in Page</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(log\ in\ image.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box {
+    width: 320px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    padding: 25px;
+    border-radius: 10px;
+    border-radius:20px ;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+input {
+     background: rgba(255, 255, 255, 0.3);
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    
+}
+
+button:hover {
+    background: #1e40af;
+}
+
+.switch {
+    text-align: center;
+    margin-top: 10px;
+    color: #2563eb;
+    cursor: pointer;
+}
+</style>
+</head>
+<body> 
+<div class="box" style="backdrop-filter: blur;">
+
+    <!-- LOGIN -->
+    <div id="loginBox">
+        <h2>Login</h2>
+        <input id="loginUser" type="text" placeholder="Username">
+        <input id="loginPass" type="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <div class="switch" onclick="showSignup()">Create new account</div>
+    </div>
+
+    <!-- SIGN UP -->
+    <div id="signupBox" style="display:none;">
+        <h2>Create Account</h2>
+        <input id="signUser" type="text" placeholder="Username">
+        <input id="signPass" type="password" placeholder="Password">
+        <button onclick="signup()">Sign Up</button>
+        <div class="switch" onclick="showLogin()">Back to login</div>
+    </div>
+
+</div>
+
+<script>
+function showSignup() {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("signupBox").style.display = "block";
+}
+
+function showLogin() {
+    document.getElementById("signupBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+}
+
+function signup() {
+    let user = document.getElementById("signUser").value;
+    let pass = document.getElementById("signPass").value;
+
+    if (user === "" || pass === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    localStorage.setItem("user", user);
+    localStorage.setItem("pass", pass);
+
+    alert("Account created successfully!");
+    showLogin();
+}
+
+function login() {
+    let user = document.getElementById("loginUser").value;
+    let pass = document.getElementById("loginPass").value;
+
+    let savedUser = localStorage.getItem("user");
+    let savedPass = localStorage.getItem("pass");
+
+    if (user === savedUser && pass === savedPass) {
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "home.html";
+    } else {
+        alert("Incorrect username or password");
+    }
+}
+</script>
+
+</body>
+</html>
